@@ -14,20 +14,8 @@ A simple project to learn about gleam!
 {"name": "Gandalf", "age": 24000}
 ```
 
-## Quick start
+## TODO
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-gleam shell # Run an Erlang shell
-```
+- [ ] first call causes a crash with an assert error, but then subsequent calls are fine?
+- [ ] Make Id phantom type to have typesafe Id(User) type used everywhere
 
-## Installation
-
-If available on Hex this package can be added to your Gleam project:
-
-```sh
-gleam add user_service
-```
-
-and its documentation can be found at <https://hexdocs.pm/user_service>.

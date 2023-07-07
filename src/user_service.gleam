@@ -7,8 +7,6 @@ import controller/user_controller
 import gleam/otp/actor
 import storage/user_actor
 
-// TODO first call causes a crash with an assert error, but then subsequent calls are fine?
-// TODO Make Id phantom type to have typesafe Id(User) type used everywhere
 pub fn main() {
   let assert Ok(actor) = actor.start(map.new(), user_actor.handle_message)
   let assert Ok(_) =
