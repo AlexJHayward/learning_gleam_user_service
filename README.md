@@ -1,9 +1,18 @@
 # user_service
 
-[![Package Version](https://img.shields.io/hexpm/v/user_service)](https://hex.pm/packages/user_service)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/user_service/)
+A simple project to learn about gleam!
 
-A Gleam project
+## usage
+
+```
+> gleam run
+
+> curl -H 'Content-Type: application/json' -X PUT -d '{"name": "Gandalf", "age": 24000}' localhost:8080/user
+8bd47936-3f45-4c85-b127-096e0348c43d
+
+> curl 'localhost:8080/user?id=8bd47936-3f45-4c85-b127-096e0348c43d'
+{"name": "Gandalf", "age": 24000}
+```
 
 ## Quick start
 
