@@ -6,6 +6,7 @@ import repository/user_repository
 import gleam/map
 import gleam/result
 import model/user
+import storage/user_actor.{UserActor}
 
 type RequestError {
   IdParamMissing
@@ -14,7 +15,7 @@ type RequestError {
   RequestBodyCouldNotBeDecoded
 }
 
-pub fn get_user(req: Request(a)) -> mist.Response {
+pub fn get_user(storage_actor: UserActor, req: Request(a)) -> mist.Response {
   let id: Result(String, RequestError) =
     req
     |> request.get_query()
@@ -25,7 +26,7 @@ pub fn get_user(req: Request(a)) -> mist.Response {
   let #(status, body_string): #(Int, String) = case
     id
     |> result.then(fn(id) {
-      user_repository.get_user(id)
+      user_repository.get_user(storage_actor, id)
       |> result.replace_error(NotFound)
     })
   {
@@ -38,7 +39,10 @@ pub fn get_user(req: Request(a)) -> mist.Response {
   |> mist.bit_builder_response(bit_builder.from_string(body_string))
 }
 
-pub fn create_user(req: Request(mist.Body)) -> mist.Response {
+pub fn create_user(
+  storage_actor: UserActor,
+  req: Request(mist.Body),
+) -> mist.Response {
   let user =
     mist.read_body(req)
     |> result.replace_error(RequestBodyCouldNotBeDecoded)
@@ -51,7 +55,7 @@ pub fn create_user(req: Request(mist.Body)) -> mist.Response {
   let #(status, response_message): #(Int, String) = case
     user
     |> result.then(fn(user) {
-      user_repository.create_user(user)
+      user_repository.create_user(storage_actor, user)
       |> result.replace_error(InternalError)
     })
   {
